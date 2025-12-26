@@ -97,6 +97,7 @@ def machine_learning():
         st.markdown("###Prediction Probability")
         st.write(f"Beach (0): **{prob_beach:.2f}%**")
         st.write(f"Mountain (1): **{prob_mountain:.2f}%**")
+        
 #Menu Settings        
 def main():
     tab1, tab2 = st.tabs(["Home", "Machine Learning"])
