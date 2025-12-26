@@ -44,46 +44,19 @@ def machine_learning():
     with col3:
         st.markdown("### Features Used")
         st.write("13")
-        
+
     with st.form("prediction_form"):
         age = st.number_input("Age", min_value=0, max_value=100, value=25)
         gender = st.selectbox("Gender", ["male", "female", "non-binary"])
-        education = st.selectbox(
-            "Education Level",
-            ["high school", "bachelor", "master", "doctorate"]
-        )
-        location = st.selectbox(
-            "Location",
-            ["urban", "suburban", "rural"]
-        )
+        education = st.selectbox("Education Level", ["high school", "bachelor", "master", "doctorate"])
+        location = st.selectbox("Location", ["urban", "suburban", "rural"])
         income = st.number_input("Income (Annual)", min_value=0, value=50000)
-        travel_freq = st.number_input(
-            "Travel Frequency (vacations per year)",
-            min_value=0,
-            max_value=20,
-            value=2
-        )
+        travel_freq = st.number_input("Travel Frequency (vacations per year)", min_value=0, max_value=20, value=2)
         vacation_budget = st.number_input("Vacation Budget", min_value=0, value=3000)
-        favorite_season = st.selectbox(
-            "Favorite Season",
-            ["summer", "winter", "spring", "fall"]
-        )
-        preferred_activities = st.selectbox(
-            "Preferred Activities",
-            ["hiking", "swimming", "skiing", "sunbathing"]
-        )
-        proximity_mountains = st.number_input(
-            "Proximity to Mountains (miles)",
-            min_value=0.0,
-            value=50.0,
-            step=1.0
-        )
-        proximity_beaches = st.number_input(
-            "Proximity to Beaches (miles)",
-            min_value=0.0,
-            value=50.0,
-            step=1.0
-        )
+        favorite_season = st.selectbox("Favorite Season", ["summer", "winter", "spring", "fall"])
+        preferred_activities = st.selectbox("Preferred Activities", ["hiking", "swimming", "skiing", "sunbathing"])
+        proximity_mountains = st.number_input("Proximity to Mountains (miles)", min_value=0.0, value=50.0, step=1.0)
+        proximity_beaches = st.number_input("Proximity to Beaches (miles)", min_value=0.0, value=50.0, step=1.0)
         pets = st.radio("Do you own pets?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
         environmental_concerns = st.radio("Environmental Concerns", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
 
@@ -106,17 +79,24 @@ def machine_learning():
             "Education_Level": [education]
         })
 
+        # Prediksi
         prediction = model.predict(input_df)
-        #st.write(prediction, type(prediction))
-        #st.write("Type:", type(prediction))
-        #st.write("Shape:", getattr(prediction, "shape", "no shape"))
-        result = prediction.item()
-        
-        #this one is optional
-        label_map = {0: "Mountain", 1: "Beach"}
-        result = label_map.get(result, result)
+        proba = model.predict_proba(input_df)
+
+        pred_class = int(prediction[0])
+
+        # Sesuai permintaan: Pantai=0, Gunung=1
+        label_map = {0: "Beach", 1: "Mountain"}
+        result = label_map.get(pred_class, str(pred_class))
+
+        prob_beach = proba[0][0] * 100
+        prob_mountain = proba[0][1] * 100
+
         st.success(f"Prediction Result: {result}")
 
+        st.markdown("###Prediction Probability")
+        st.write(f"Beach (0): **{prob_beach:.2f}%**")
+        st.write(f"Mountain (1): **{prob_mountain:.2f}%**")
 #Menu Settings        
 def main():
     tab1, tab2 = st.tabs(["Home", "Machine Learning"])
