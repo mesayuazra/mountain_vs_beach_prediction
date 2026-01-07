@@ -3,19 +3,19 @@ import joblib
 import pandas as pd
 import sklearn
 
-model = joblib.load("model_preference_rf.pkl")
+model = joblib.load("model_preference_rf_v3.pkl")
 
 #Homepage
 def home():
     st.title("Beach vs Mountain Travel Preference Predictor")
-    st.markdown("""Welcome! Discover whether you are more likely to prefer Beach or Mountain destinations based on your personal and lifestyle information.""")
-    st.subheader("📊 Features Used in Prediction")
-    st.markdown("""
-        - **Demographics**: Age, Gender, Education Level, Income, Location  
-        - **Lifestyle**: Travel Frequency, Vacation Budget, Pets, Environmental Concerns
-        - **Preferences**: Favorite Season, Preferred Activities  
-        - **Environment**: Proximity to Mountains, Proximity to Beaches 
-    """)
+    st.markdown("""Welcome! Discover whether you are more likely to prefer Beach or Mountain destinations based on your information.""")
+    # st.subheader("📊 Features Used in Prediction")
+    # st.markdown("""
+    #     - **Demographics**: Age, Gender, Education Level, Income, Location  
+    #     - **Lifestyle**: Travel Frequency, Vacation Budget, Pets, Environmental Concerns
+    #     - **Preferences**: Favorite Season, Preferred Activities  
+    #     - **Environment**: Proximity to Mountains, Proximity to Beaches 
+    # """)
     
     st.subheader("How to Use")
     st.markdown("""
@@ -43,40 +43,40 @@ def machine_learning():
         st.write("Beach vs Mountain Preference")
     with col3:
         st.markdown("### Features Used")
-        st.write("13")
+        st.write("3")
 
     with st.form("prediction_form"):
-        age = st.number_input("Age", min_value=0, max_value=100, value=25)
-        gender = st.selectbox("Gender", ["male", "female", "non-binary"])
-        education = st.selectbox("Education Level", ["high school", "bachelor", "master", "doctorate"])
-        location = st.selectbox("Location", ["urban", "suburban", "rural"])
-        income = st.number_input("Income (Annual)", min_value=0, value=50000)
-        travel_freq = st.number_input("Travel Frequency (vacations per year)", min_value=0, max_value=20, value=2)
-        vacation_budget = st.number_input("Vacation Budget", min_value=0, value=3000)
-        favorite_season = st.selectbox("Favorite Season", ["summer", "winter", "spring", "fall"])
         preferred_activities = st.selectbox("Preferred Activities", ["hiking", "swimming", "skiing", "sunbathing"])
-        proximity_mountains = st.number_input("Proximity to Mountains (miles)", min_value=0.0, value=50.0, step=1.0)
-        proximity_beaches = st.number_input("Proximity to Beaches (miles)", min_value=0.0, value=50.0, step=1.0)
-        pets = st.radio("Do you own pets?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
-        environmental_concerns = st.radio("Environmental Concerns", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+        proximity_mountains = st.number_input("Proximity to Mountains (miles)", min_value=0.0, step=1.0)
+        proximity_beaches = st.number_input("Proximity to Beaches (miles)", min_value=0.0, step=1.0)
+        # age = st.number_input("Age", min_value=0, max_value=100, value=25)
+        # gender = st.selectbox("Gender", ["male", "female", "non-binary"])
+        # education = st.selectbox("Education Level", ["high school", "bachelor", "master", "doctorate"])
+        # location = st.selectbox("Location", ["urban", "suburban", "rural"])
+        # income = st.number_input("Income (Annual)", min_value=0, value=50000)
+        # travel_freq = st.number_input("Travel Frequency (vacations per year)", min_value=0, max_value=20, value=2)
+        # vacation_budget = st.number_input("Vacation Budget", min_value=0, value=3000)
+        # favorite_season = st.selectbox("Favorite Season", ["summer", "winter", "spring", "fall"])
+        # pets = st.radio("Do you own pets?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+        # environmental_concerns = st.radio("Environmental Concerns", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
 
         submit = st.form_submit_button("Predict")
 
     if submit:
         input_df = pd.DataFrame({
-            "Age": [age],
-            "Gender": [gender],
-            "Income": [income],
-            "Travel_Frequency": [travel_freq],
-            "Vacation_Budget": [vacation_budget],
+            "Preferred_Activities": [preferred_activities],
             "Proximity_to_Mountains": [proximity_mountains],
             "Proximity_to_Beaches": [proximity_beaches],
-            "Pets": [pets],
-            "Environmental_Concerns": [environmental_concerns],
-            "Location": [location],
-            "Favorite_Season": [favorite_season],
-            "Preferred_Activities": [preferred_activities],
-            "Education_Level": [education]
+            # "Age": [age],
+            # "Gender": [gender],
+            # "Income": [income],
+            # "Travel_Frequency": [travel_freq],
+            # "Vacation_Budget": [vacation_budget],
+            # "Pets": [pets],
+            # "Environmental_Concerns": [environmental_concerns],
+            # "Location": [location],
+            # "Favorite_Season": [favorite_season],
+            # "Education_Level": [education]
         })
 
         # Prediksi
