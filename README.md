@@ -1,6 +1,6 @@
 # 🏖️ Beach vs Mountain Preference Prediction
 
-This project is a **Machine Learning web application** that predicts whether a person prefers **Beach** or **Mountain** destinations based on demographic, lifestyle, and preference data.
+This project is a **Machine Learning web application** that predicts whether a person prefers **Beach** or **Mountain** destinations based on demographic and preference data.
 
 ## 🚀 Demo Features
 - Random Forest Classifier
@@ -10,18 +10,9 @@ This project is a **Machine Learning web application** that predicts whether a p
 - Real-time prediction
 
 ## 🧠 Features Used
-- Age
-- Income
-- Education Level
-- Travel Frequency
-- Vacation Budget
-- Favorite Season
 - Preferred Activities
-- Location Type
 - Proximity to Beaches
 - Proximity to Mountains
-- Pets
-- Environmental Concerns
 
 ## 🛠 Tech Stack
 - Python
